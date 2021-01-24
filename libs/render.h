@@ -17,6 +17,10 @@ int init_render(void) {
 			320,
 			SDL_WINDOW_OPENGL);
 
+	renderer = SDL_CreateRenderer(
+			window,
+			-1,
+			SDL_RENDERER_ACCELERATED);
 	return 0;
 }
 
