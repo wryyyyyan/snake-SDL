@@ -3,13 +3,10 @@
 #ifndef RENDER_H
 #define RENDER_H
 
-int init_render(void) {
+int init_render(SDL_Window ** window, SDL_Renderer ** renderer) {
 	SDL_Init(SDL_INIT_VIDEO);
-
-	SDL_Window * window;
-	SDL_Renderer * renderer;
 	
-	window = SDL_CreateWindow(
+	*window = SDL_CreateWindow(
 			"Snake",
 			SDL_WINDOWPOS_UNDEFINED,
 			SDL_WINDOWPOS_UNDEFINED,
@@ -17,8 +14,8 @@ int init_render(void) {
 			320,
 			SDL_WINDOW_OPENGL);
 
-	renderer = SDL_CreateRenderer(
-			window,
+	*renderer = SDL_CreateRenderer(
+			*window,
 			-1,
 			SDL_RENDERER_ACCELERATED);
 	return 0;
