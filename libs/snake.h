@@ -20,7 +20,7 @@ Snake create_snake(SDL_Color color) {
 	snake.sprite.w = snake.sprite.h = 16;
 	snake.body_capacity = 10;
 	snake.body_size = 0;
-	snake.body = calloc(snake.body_capacity, sizeof(snake.body));
+	snake.body = calloc(snake.body_capacity, sizeof(SDL_Point));
 
 	return snake;
 }
