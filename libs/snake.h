@@ -25,4 +25,14 @@ Snake create_snake(SDL_Color color) {
 	return snake;
 }
 
+
+void add_snake_segment(Snake * snake, SDL_Point position) {
+	snake->body_size++;
+	if(snake->body_size >= snake->body_capacity) {
+		snake->body_capacity += 10;
+		snake->body = realloc(snake->body, snake->body_capacity * sizeof(SDL_Point));
+	}
+	snake->body[snake->body_size - 1] = position;
+}
+
 #endif
