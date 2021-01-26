@@ -6,6 +6,8 @@
 typedef struct Snake {
 	SDL_Rect sprite;
 	SDL_Color color;
+	int body_capacity;
+	int body_size;
 	SDL_Point * body;
 } Snake;
 
