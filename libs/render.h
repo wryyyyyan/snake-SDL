@@ -21,5 +21,19 @@ int init_render(SDL_Window ** window, SDL_Renderer ** renderer) {
 	return 0;
 }
 
+int render_scene(SDL_Renderer * renderer, SDL_Surface * buffer) {
+	// limpa a tela
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+	SDL_RenderClear(renderer);
+
+	// cria uma SDL_Texture a partir do buffer
+	SDL_Texture * render_texture = SDL_CreateTextureFromSurface(renderer, buffer);
+
+	// copia o conteudo da texutra para o renderizador
+	SDL_RenderCopy(renderer, render_texture, NULL, NULL);
+
+	// chama a função RenderPresent
+	SDL_RenderPresent(renderer);
+}
 
 #endif
