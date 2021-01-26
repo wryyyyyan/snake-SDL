@@ -3,21 +3,28 @@
 #ifndef RENDER_H
 #define RENDER_H
 
-int init_render(SDL_Window ** window, SDL_Renderer ** renderer) {
+int init_render(SDL_Window ** window, SDL_Renderer ** renderer, SDL_Surface ** buffer, SDL_Point screen_size) {
 	SDL_Init(SDL_INIT_VIDEO);
 	
 	*window = SDL_CreateWindow(
 			"Snake",
 			SDL_WINDOWPOS_UNDEFINED,
 			SDL_WINDOWPOS_UNDEFINED,
-			320,
-			320,
+			screen_size.x,
+			screen_size.y,
 			SDL_WINDOW_OPENGL);
 
 	*renderer = SDL_CreateRenderer(
 			*window,
 			-1,
 			SDL_RENDERER_ACCELERATED);
+
+	*buffer = SDL_CreateRGBSurface(
+			0,
+			screen_size.x,
+			screen_size.y,
+			32, 0, 0, 0, 0);
+
 	return 0;
 }
 
