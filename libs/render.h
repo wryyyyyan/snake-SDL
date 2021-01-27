@@ -41,6 +41,8 @@ int render_scene(SDL_Renderer * renderer, SDL_Surface * buffer) {
 
 	// chama a função RenderPresent
 	SDL_RenderPresent(renderer);
+
+	SDL_FillRect(buffer, NULL, SDL_MapRGBA(buffer->format, 0, 0, 0, 255));
 }
 
 #endif
