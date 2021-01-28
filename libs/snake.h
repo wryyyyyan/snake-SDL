@@ -3,9 +3,12 @@
 #ifndef SNAKE_H
 #define SNAKE_H
 
+enum directions { UP, LEFT, DOWN, RIGHT };
+
 typedef struct Snake {
 	SDL_Rect sprite;
 	SDL_Color color;
+	enum directions current_direction;
 	int body_capacity;
 	int body_size;
 	SDL_Point * body;
@@ -18,6 +21,7 @@ Snake create_snake(SDL_Color color) {
 	snake.sprite.x = 0;
 	snake.sprite.y = 0;
 	snake.sprite.w = snake.sprite.h = 16;
+	snake.current_direction = LEFT;
 	snake.body_capacity = 10;
 	snake.body_size = 0;
 	snake.body = calloc(snake.body_capacity, sizeof(SDL_Point));
