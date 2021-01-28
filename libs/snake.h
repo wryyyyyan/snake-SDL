@@ -39,6 +39,24 @@ void add_snake_segment(Snake * snake, SDL_Point position) {
 	snake->body[snake->body_size - 1] = position;
 }
 
+
+void change_direction(SDL_Event * keypress, Snake * snake) {
+	switch(keypress->key.keysym.scancode) {
+		case SDL_SCANCODE_UP:
+			if(snake->current_direction != DOWN) snake->current_direction = UP;
+			break;
+		case SDL_SCANCODE_LEFT:
+			if(snake->current_direction != RIGHT) snake->current_direction = LEFT;
+			break;
+		case SDL_SCANCODE_DOWN:
+			if(snake->current_direction != UP) snake->current_direction = DOWN;
+			break;
+		case SDL_SCANCODE_RIGHT:
+			if(snake->current_direction != LEFT) snake->current_direction = RIGHT;
+			break;
+	}
+}
+
 void render_snake(SDL_Surface * buffer, Snake * snake) {
 	for(int i = 0; i <= snake->body_size - 1; i++) {
 		snake->sprite.x = snake->body[i].x;
