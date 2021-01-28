@@ -39,4 +39,13 @@ void add_snake_segment(Snake * snake, SDL_Point position) {
 	snake->body[snake->body_size - 1] = position;
 }
 
+void render_snake(SDL_Surface * buffer, Snake * snake) {
+	for(int i = 0; i <= snake->body_size - 1; i++) {
+		snake->sprite.x = snake->body[i].x;
+		snake->sprite.y = snake->body[i].y;
+		SDL_FillRect(buffer, &snake->sprite, SDL_MapRGBA(buffer->format, 255, 255, 255, 255));
+	}
+
+}
+
 #endif
