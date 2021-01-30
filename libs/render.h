@@ -19,11 +19,12 @@ int init_render(SDL_Window ** window, SDL_Renderer ** renderer, SDL_Surface ** b
 			-1,
 			SDL_RENDERER_ACCELERATED);
 
-	*buffer = SDL_CreateRGBSurface(
+	*buffer = SDL_CreateRGBSurfaceWithFormat(
 			0,
 			screen_size.x,
 			screen_size.y,
-			32, 0, 0, 0, 0);
+			32,
+			SDL_PIXELFORMAT_RGBA32);
 
 	*render_texture = SDL_CreateTexture(
 			*renderer,
