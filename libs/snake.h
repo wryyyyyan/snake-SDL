@@ -82,12 +82,14 @@ void move_snake(Snake * snake) {
 	}
 }
 
-void render_snake(SDL_Surface * buffer, Snake * snake) {
+void render_snake(SDL_Surface * buffer, SDL_Texture * render_texture, Snake * snake) {
+	SDL_LockTexture(render_texture, NULL, &buffer->pixels, &buffer->pitch);
 	for(int i = 0; i <= snake->body_size - 1; i++) {
 		snake->sprite.x = snake->body[i].x;
 		snake->sprite.y = snake->body[i].y;
 		SDL_FillRect(buffer, &snake->sprite, SDL_MapRGBA(buffer->format, 255, 255, 255, 255));
 	}
+	SDL_UnlockTexture(render_texture);
 
 }
 
