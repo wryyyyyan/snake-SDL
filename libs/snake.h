@@ -8,6 +8,7 @@ enum directions { UP, LEFT, DOWN, RIGHT };
 typedef struct Snake {
 	SDL_Rect sprite;
 	SDL_Color color;
+	SDL_Point head;
 	int is_alive;
 	enum directions current_direction;
 	int body_capacity;
@@ -16,9 +17,10 @@ typedef struct Snake {
 } Snake;
 
 
-Snake create_snake(SDL_Color color) {
+Snake create_snake(SDL_Color color, SDL_Point head_position) {
 	Snake snake;
 	snake.color = color;
+	snake.head = head_position;
 	snake.sprite.x = 0;
 	snake.sprite.y = 0;
 	snake.sprite.w = snake.sprite.h = 16;
@@ -77,19 +79,26 @@ void move_snake(Snake * snake) {
 	}
 
 
-	snake->body[0].x += velocity.x;
-	snake->body[0].y += velocity.y;
+	//snake->body[0].x += velocity.x;
+	//snake->body[0].y += velocity.y;
+	SDL_Point tmp = snake->head;
+	snake->head.x += velocity.x;
+	snake->head.y += velocity.y;
 	for(int i = snake->body_size - 1; i > 0; i--) {
 		snake->body[i] = snake->body[i - 1];
 	}
+	snake->body[0] = tmp;
 }
 
 void render_snake(SDL_Surface * buffer, SDL_Texture * render_texture, Snake * snake) {
 	SDL_LockTexture(render_texture, NULL, &buffer->pixels, &buffer->pitch);
+	snake->sprite.x = snake->head.x;
+	snake->sprite.y = snake->head.y;
+	SDL_FillRect(buffer, &snake->sprite, SDL_MapRGBA(buffer->format, snake->color.r, snake->color.g, snake->color.b, 255));
 	for(int i = 0; i <= snake->body_size - 1; i++) {
 		snake->sprite.x = snake->body[i].x;
 		snake->sprite.y = snake->body[i].y;
-		SDL_FillRect(buffer, &snake->sprite, SDL_MapRGBA(buffer->format, 255, 255, 255, 255));
+		SDL_FillRect(buffer, &snake->sprite, SDL_MapRGBA(buffer->format, snake->color.r, snake->color.g, snake->color.b, 255));
 	}
 	SDL_UnlockTexture(render_texture);
 
