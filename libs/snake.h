@@ -104,4 +104,10 @@ void render_snake(SDL_Surface * buffer, SDL_Texture * render_texture, Snake * sn
 
 }
 
+void die(Snake * snake) {
+	snake->is_alive = 0;
+	SDL_Color red = { 255, 0, 0, 255 };
+	snake->color = red;
+}
+
 #endif
