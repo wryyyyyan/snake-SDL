@@ -29,4 +29,9 @@ void render_fruit(SDL_Surface * buffer, SDL_Texture * render_texture, Fruit * fr
 	SDL_UnlockTexture(render_texture);
 
 }
+
+void move_fruit(Fruit * fruit, SDL_Point position) {
+	fruit->position = position;
+}
+
 #endif
