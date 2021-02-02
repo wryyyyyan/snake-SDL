@@ -21,4 +21,12 @@ Fruit create_fruit(SDL_Color color, SDL_Point first_position) {
 }
 
 
+void render_fruit(SDL_Surface * buffer, SDL_Texture * render_texture, Fruit * fruit) {
+	SDL_LockTexture(render_texture, NULL, &buffer->pixels, &buffer->pitch);
+	fruit->sprite.x = fruit->position.x;
+	fruit->sprite.y = fruit->position.y;
+	SDL_FillRect(buffer, &fruit->sprite, SDL_MapRGBA(buffer->format, fruit->color.r, fruit->color.g, fruit->color.b, 255));
+	SDL_UnlockTexture(render_texture);
+
+}
 #endif
