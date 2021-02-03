@@ -44,20 +44,19 @@ void add_snake_segment(Snake * snake, SDL_Point position) {
 }
 
 
-void change_direction(SDL_Event * keypress, Snake * snake) {
-	switch(keypress->key.keysym.scancode) {
-		case SDL_SCANCODE_UP:
-			if(snake->current_direction != DOWN) snake->current_direction = UP;
-			break;
-		case SDL_SCANCODE_LEFT:
-			if(snake->current_direction != RIGHT) snake->current_direction = LEFT;
-			break;
-		case SDL_SCANCODE_DOWN:
-			if(snake->current_direction != UP) snake->current_direction = DOWN;
-			break;
-		case SDL_SCANCODE_RIGHT:
-			if(snake->current_direction != LEFT) snake->current_direction = RIGHT;
-			break;
+void change_direction(const Uint8 * keyboard_state, Snake * snake) {
+
+	if(keyboard_state[SDL_SCANCODE_UP] && snake->current_direction != DOWN) {
+		snake->current_direction = UP;
+	}
+	else if(keyboard_state[SDL_SCANCODE_LEFT] && snake->current_direction != RIGHT) {
+		snake->current_direction = LEFT;
+	}
+	else if(keyboard_state[SDL_SCANCODE_DOWN] && snake->current_direction != UP) {
+		snake->current_direction = DOWN;
+	}
+	else if(keyboard_state[SDL_SCANCODE_RIGHT] && snake->current_direction != LEFT) {
+		snake->current_direction = RIGHT;
 	}
 }
 
