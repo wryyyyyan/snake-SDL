@@ -89,18 +89,16 @@ void move_snake(Snake * snake) {
 	snake->body[0] = tmp;
 }
 
-void render_snake(SDL_Surface * buffer, SDL_Texture * render_texture, Snake * snake) {
-	SDL_LockTexture(render_texture, NULL, &buffer->pixels, &buffer->pitch);
+void render_snake(SDL_Renderer * renderer, Snake * snake) {
+	SDL_SetRenderDrawColor(renderer, snake->color.r, snake->color.g, snake->color.b, snake->color.a);
 	snake->sprite.x = snake->head.x;
 	snake->sprite.y = snake->head.y;
-	SDL_FillRect(buffer, &snake->sprite, SDL_MapRGBA(buffer->format, snake->color.r, snake->color.g, snake->color.b, 255));
+	SDL_RenderFillRect(renderer, &snake->sprite);
 	for(int i = 0; i <= snake->body_size - 1; i++) {
 		snake->sprite.x = snake->body[i].x;
 		snake->sprite.y = snake->body[i].y;
-		SDL_FillRect(buffer, &snake->sprite, SDL_MapRGBA(buffer->format, snake->color.r, snake->color.g, snake->color.b, 255));
+		SDL_RenderFillRect(renderer, &snake->sprite);
 	}
-	SDL_UnlockTexture(render_texture);
-
 }
 
 void die(Snake * snake) {
