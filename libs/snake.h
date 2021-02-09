@@ -8,7 +8,6 @@ enum directions { UP, LEFT, DOWN, RIGHT };
 typedef struct Snake {
 	SDL_Rect sprite;
 	SDL_Color color;
-	SDL_Point head;
 	int is_alive;
 	enum directions current_direction;
 	int body_capacity;
@@ -17,10 +16,9 @@ typedef struct Snake {
 } Snake;
 
 
-Snake create_snake(SDL_Color color, SDL_Point head_position) {
+Snake create_snake(SDL_Color color) {
 	Snake snake;
 	snake.color = color;
-	snake.head = head_position;
 	snake.sprite.x = 0;
 	snake.sprite.y = 0;
 	snake.sprite.w = snake.sprite.h = 16;
@@ -45,7 +43,7 @@ void add_snake_segment(Snake * snake, SDL_Point position) {
 
 
 void change_direction(const Uint8 * keyboard_state, Snake * snake) {
-
+	enum directions direction = snake->current_direction;
 	if(keyboard_state[SDL_SCANCODE_UP] && snake->current_direction != DOWN) {
 		snake->current_direction = UP;
 	}
@@ -58,6 +56,7 @@ void change_direction(const Uint8 * keyboard_state, Snake * snake) {
 	else if(keyboard_state[SDL_SCANCODE_RIGHT] && snake->current_direction != LEFT) {
 		snake->current_direction = RIGHT;
 	}
+
 }
 
 void move_snake(Snake * snake) {
@@ -78,21 +77,17 @@ void move_snake(Snake * snake) {
 	}
 
 
-	//snake->body[0].x += velocity.x;
-	//snake->body[0].y += velocity.y;
-	SDL_Point tmp = snake->head;
-	snake->head.x += velocity.x;
-	snake->head.y += velocity.y;
 	for(int i = snake->body_size - 1; i > 0; i--) {
 		snake->body[i] = snake->body[i - 1];
 	}
-	snake->body[0] = tmp;
+	snake->body->x += velocity.x;
+	snake->body->y += velocity.y;
 }
 
 void render_snake(SDL_Renderer * renderer, Snake * snake) {
 	SDL_SetRenderDrawColor(renderer, snake->color.r, snake->color.g, snake->color.b, snake->color.a);
-	snake->sprite.x = snake->head.x;
-	snake->sprite.y = snake->head.y;
+	//snake->sprite.x = snake->body->x;
+	//snake->sprite.y = snake->body->y;
 	SDL_RenderFillRect(renderer, &snake->sprite);
 	for(int i = 0; i <= snake->body_size - 1; i++) {
 		snake->sprite.x = snake->body[i].x;
