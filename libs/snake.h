@@ -15,7 +15,6 @@ typedef struct Snake {
 	SDL_Point * body;
 } Snake;
 
-
 Snake create_snake(SDL_Color color) {
 	Snake snake;
 	snake.color = color;
@@ -43,7 +42,7 @@ void add_snake_segment(Snake * snake, SDL_Point position) {
 
 
 void change_direction(const Uint8 * keyboard_state, Snake * snake) {
-	enum directions direction = snake->current_direction;
+
 	if(keyboard_state[SDL_SCANCODE_UP] && snake->current_direction != DOWN) {
 		snake->current_direction = UP;
 	}
@@ -85,14 +84,13 @@ void move_snake(Snake * snake) {
 }
 
 void render_snake(SDL_Renderer * renderer, Snake * snake) {
-	SDL_SetRenderDrawColor(renderer, snake->color.r, snake->color.g, snake->color.b, snake->color.a);
-	//snake->sprite.x = snake->body->x;
-	//snake->sprite.y = snake->body->y;
-	SDL_RenderFillRect(renderer, &snake->sprite);
-	for(int i = 0; i <= snake->body_size - 1; i++) {
+	for(int i = 0; i < snake->body_size; i++) {
 		snake->sprite.x = snake->body[i].x;
 		snake->sprite.y = snake->body[i].y;
+		SDL_SetRenderDrawColor(renderer, snake->color.r, snake->color.g, snake->color.b, snake->color.a);
 		SDL_RenderFillRect(renderer, &snake->sprite);
+		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+		SDL_RenderDrawRect(renderer, &snake->sprite);
 	}
 }
 
