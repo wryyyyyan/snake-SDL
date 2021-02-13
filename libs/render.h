@@ -12,7 +12,7 @@ int init_render(SDL_Window ** window, SDL_Renderer ** renderer, SDL_Point screen
 			SDL_WINDOWPOS_UNDEFINED,
 			screen_size.x,
 			screen_size.y,
-			SDL_WINDOW_OPENGL);
+			SDL_WINDOW_OPENGL|SDL_WINDOW_RESIZABLE);
 
 	*renderer = SDL_CreateRenderer(
 			*window,
