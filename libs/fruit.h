@@ -32,4 +32,13 @@ void move_fruit(Fruit * fruit, SDL_Point position) {
 	fruit->position = position;
 }
 
+SDL_Point generate_new_fruit_position(SDL_Rect game_area) {
+	SDL_Point fruit_pos = {
+		(rand() % ( (game_area.w - game_area.x) / 16 ) + (game_area.x / 16)) * 16,
+		(rand() % ( (game_area.h - game_area.y) / 16 ) + (game_area.y / 16)) * 16
+	};
+
+	return fruit_pos;
+}
+
 #endif
