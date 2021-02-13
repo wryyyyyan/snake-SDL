@@ -20,7 +20,6 @@ Fruit create_fruit(SDL_Color color, SDL_Point first_position) {
 	return fruit;
 }
 
-
 void render_fruit(SDL_Renderer * renderer, Fruit * fruit) {
 	SDL_SetRenderDrawColor(renderer, fruit->color.r, fruit->color.g, fruit->color.b, fruit->color.a);
 	fruit->sprite.x = fruit->position.x;
@@ -39,6 +38,15 @@ SDL_Point generate_new_fruit_position(SDL_Rect game_area) {
 	};
 
 	return fruit_pos;
+}
+
+int is_valid_fruit_position(SDL_Point fruit_pos, SDL_Point * snake_body, int snake_body_size) {
+	for(int i = 0; i <= snake_body_size - 1; i++) {
+		if(snake_body[i].x == fruit_pos.x && snake_body[i].y == fruit_pos.y) {
+			return 0;
+		}
+	}
+	return 1;
 }
 
 #endif
