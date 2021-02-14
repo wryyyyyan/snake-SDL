@@ -4,8 +4,9 @@
 #ifndef RENDER_H
 #define RENDER_H
 
-int init_render(SDL_Window ** window, SDL_Renderer ** renderer, SDL_Point screen_size) {
+int init_render(SDL_Window ** window, SDL_Renderer ** renderer, TTF_Font ** font, SDL_Point screen_size) {
 	SDL_Init(SDL_INIT_VIDEO);
+	TTF_Init();
 	
 	*window = SDL_CreateWindow(
 			"Snake",
@@ -21,7 +22,7 @@ int init_render(SDL_Window ** window, SDL_Renderer ** renderer, SDL_Point screen
 			SDL_RENDERER_ACCELERATED);
 
 
-	TTF_Init();
+	*font = TTF_OpenFont("dogica/TTF/dogicapixelbold.ttf", 24);
 	return 0;
 }
 
