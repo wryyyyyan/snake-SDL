@@ -33,4 +33,25 @@ int render_scene(SDL_Renderer * renderer) {
 	SDL_RenderClear(renderer);
 }
 
+void write_to_screen(SDL_Renderer * renderer, TTF_Font * fonte, const char * texto, SDL_Color cor, SDL_Point center_position, SDL_Point * boundary) {
+
+	SDL_Surface * text_surface = TTF_RenderText_Solid(fonte, texto, cor);
+
+	int x_position = center_position.x - text_surface->w / 2;
+	int y_position = center_position.y - text_surface->h / 2;
+
+	if(boundary != NULL) {
+		x_position = x_position > boundary->x ? x_position : boundary->x;
+		y_position = y_position > boundary->y ? y_position : boundary->y;
+	}
+
+	SDL_Rect text_area = { x_position, y_position, text_surface->w, text_surface->h };
+
+	SDL_Texture * text = SDL_CreateTextureFromSurface(renderer, text_surface);
+	SDL_FreeSurface(text_surface);
+
+	SDL_RenderCopy(renderer, text, NULL, &text_area);
+	SDL_DestroyTexture(text);
+}
+
 #endif
