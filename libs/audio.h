@@ -18,4 +18,12 @@ Mix_Chunk * load_audio(const char * filename, int volume) {
 	return audio;
 }
 
+
+void audio_play_once(Mix_Chunk * audio, int * flag) {
+	if(!*flag) {
+		Mix_PlayChannel(-1, audio, 0);
+		*flag = 1;
+	}
+}
+
 #endif
