@@ -1,4 +1,5 @@
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 
 #ifndef RENDER_H
 #define RENDER_H
@@ -18,6 +19,9 @@ int init_render(SDL_Window ** window, SDL_Renderer ** renderer, SDL_Point screen
 			*window,
 			-1,
 			SDL_RENDERER_ACCELERATED);
+
+
+	TTF_Init();
 	return 0;
 }
 
