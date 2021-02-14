@@ -11,4 +11,11 @@ int init_audio() {
 	return 0;
 }
 
+Mix_Chunk * load_audio(const char * filename, int volume) {
+	Mix_Chunk * audio = Mix_LoadWAV(filename);
+	Mix_VolumeChunk(audio, volume);
+
+	return audio;
+}
+
 #endif
