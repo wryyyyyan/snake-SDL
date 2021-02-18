@@ -39,7 +39,7 @@ int init_render(SDL_Window ** window, SDL_Renderer ** renderer, TTF_Font ** font
 	return 0;
 }
 
-int render_scene(SDL_Renderer * renderer) {
+void render_scene(SDL_Renderer * renderer) {
 	SDL_RenderPresent(renderer);
 
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
