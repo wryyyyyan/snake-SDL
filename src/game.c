@@ -170,7 +170,7 @@ void update(SDL_Event * event, Snake * snake, Fruit * fruit, int * score, const 
 		}
 	}
 	
-	if(check_collision(snake, &game_area)) {	
+	if(check_collision(snake, &game_area) && snake->is_alive) {
 		die(snake);
 	}
 	
