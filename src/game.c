@@ -73,7 +73,10 @@ int main(void) {
 		
 		render(renderer, fonte, &snake, &fruit, score, snake.is_alive, game_area, hud_area);
 	
-		if(!snake.is_alive) audio_play_once(game_over_sound, &sflags.game_over_flag);
+		if(sflags.game_over_flag) {
+			Mix_PlayChannel(1, game_over_sound, 0);
+			sflags.game_over_flag = 0;
+		}
 		if(sflags.one_point_flag) Mix_PlayChannel(-1, one_point_sound, 0);
 		if(sflags.ten_points_flag) Mix_PlayChannel(-1, ten_points_sound, 0);
 		
@@ -172,6 +175,7 @@ void update(SDL_Event * event, Snake * snake, Fruit * fruit, int * score, const 
 	
 	if(check_collision(snake, &game_area) && snake->is_alive) {
 		die(snake);
+		sflags->game_over_flag = 1;
 	}
 	
 	if(snake->body->x == fruit->position.x && snake->body->y == fruit->position.y) {
