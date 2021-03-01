@@ -64,12 +64,16 @@ int main(void) {
 	Mix_Chunk * ten_points_sound = load_audio("sons/10 fruits.wav", 32);
 	Mix_Chunk * game_over_sound = load_audio("sons/Game over.wav", 64); 
 
+
+
 	while(1) {
+		SDL_PollEvent(&event);
+
 		sflags.one_point_flag = 0;
 		sflags.ten_points_flag = 0;
 
 		update_game_area(window, &hud_area, &game_area);
-		update(&event, &snake, &fruit, &score, keyboard_state, hud_area, game_area, &sflags);
+		update(&snake, &fruit, &score, keyboard_state, hud_area, game_area, &sflags);
 		
 		render(renderer, fonte, &snake, &fruit, score, snake.is_alive, game_area, hud_area);
 	
@@ -157,9 +161,8 @@ int check_collision(Snake * snake, SDL_Rect * game_area) {
 	return 0;
 }
 
-void update(SDL_Event * event, Snake * snake, Fruit * fruit, int * score, const Uint8 * keyboard_state, SDL_Rect hud_area, SDL_Rect game_area, SoundFlags * sflags) { 
+void update(Snake * snake, Fruit * fruit, int * score, const Uint8 * keyboard_state, SDL_Rect hud_area, SDL_Rect game_area, SoundFlags * sflags) { 
 	
-	SDL_PollEvent(event);	
 	if(snake->is_alive) {
 		change_direction(keyboard_state, snake);
 		move_snake(snake);
