@@ -22,6 +22,5 @@
 
 int init_audio();
 Mix_Chunk * load_audio(const char * filename, int volume);
-void audio_play_once(Mix_Chunk * audio, int * flag);
 
 #endif
