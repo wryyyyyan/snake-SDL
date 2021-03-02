@@ -31,13 +31,19 @@
 
 typedef enum flag_values {
 	WINDOW_RESIZE,
-	APPLICATION_CLOSE
+	APPLICATION_CLOSE,
+	GAME_OVER,
+	ONE_POINT,
+	TEN_POINTS
 } flag_values;
 
 // não use isso diretamente
 int flags[] = {
 	0, // window resize
-	0  // application close
+	0, // application close
+	0, // game over
+	0, // one point
+	0  // ten points
 };
 
 int check_flag(flag_values flag) {
