@@ -52,6 +52,20 @@ void clear_flag(flag_values flag) {
 	flags[flag] = 0;
 }
 
+
+int handle_events(void * unused, SDL_Event * event) {
+	if(event->type == SDL_QUIT) {
+		set_flag(APPLICATION_CLOSE);
+	}
+
+	if(event->type == SDL_WINDOWEVENT) {
+		if(event->window.event == SDL_WINDOWEVENT_RESIZED) {
+			set_flag(WINDOW_RESIZE);
+		}
+	}
+}
+
+
 int main(void) {
 	SDL_SetMainReady();
 	srand( time(NULL) );
@@ -87,7 +101,7 @@ int main(void) {
 	Mix_Chunk * ten_points_sound = load_audio("sons/10 fruits.wav", 32);
 	Mix_Chunk * game_over_sound = load_audio("sons/Game over.wav", 64); 
 
-
+	SDL_AddEventWatch(handle_events, 0);
 
 	while(1) {
 		SDL_PollEvent(&event);
@@ -95,7 +109,6 @@ int main(void) {
 		sflags.one_point_flag = 0;
 		sflags.ten_points_flag = 0;
 
-		update_game_area(window, &hud_area, &game_area);
 		update(&snake, &fruit, &score, keyboard_state, hud_area, game_area, &sflags);
 		
 		render(renderer, fonte, &snake, &fruit, score, snake.is_alive, game_area, hud_area);
