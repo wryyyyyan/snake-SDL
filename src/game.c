@@ -105,7 +105,14 @@ int main(void) {
 
 	while(1) {
 		SDL_PollEvent(&event);
+		if(check_flag(APPLICATION_CLOSE)) {
+			break;
+		}
 
+		if(check_flag(WINDOW_RESIZE)) {
+			update_game_area(window, &hud_area, &game_area);
+			clear_flag(WINDOW_RESIZE);
+		}
 		sflags.one_point_flag = 0;
 		sflags.ten_points_flag = 0;
 
@@ -119,10 +126,6 @@ int main(void) {
 		}
 		if(sflags.one_point_flag) Mix_PlayChannel(-1, one_point_sound, 0);
 		if(sflags.ten_points_flag) Mix_PlayChannel(-1, ten_points_sound, 0);
-		
-		if(event.type == SDL_QUIT) {
-			break;
-		}
 		
 		SDL_Delay(delay);
 	}
