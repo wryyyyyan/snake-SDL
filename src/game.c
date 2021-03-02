@@ -29,6 +29,29 @@
 #include <time.h>
 
 
+typedef enum flag_values {
+	WINDOW_RESIZE,
+	APPLICATION_CLOSE
+} flag_values;
+
+// não use isso diretamente
+int flags[] = {
+	0, // window resize
+	0  // application close
+};
+
+int check_flag(flag_values flag) {
+	return flags[flag];
+}
+
+void set_flag(flag_values flag) {
+	flags[flag] = 1;
+}
+
+void clear_flag(flag_values flag) {
+	flags[flag] = 0;
+}
+
 int main(void) {
 	SDL_SetMainReady();
 	srand( time(NULL) );
@@ -52,7 +75,7 @@ int main(void) {
 	sflags.game_over_flag = 0;
 	sflags.one_point_flag = 0;
 	sflags.ten_points_flag = 0;
-	
+
 	const Uint8 * keyboard_state = SDL_GetKeyboardState(NULL);
 	
 	init_render(&window, &renderer, &fonte, screen_size);
