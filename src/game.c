@@ -89,12 +89,7 @@ int main(void) {
 	
 	Snake snake;
 	Fruit fruit;
-	SoundFlags sflags;
 	int score = 0;
-
-	sflags.game_over_flag = 0;
-	sflags.one_point_flag = 0;
-	sflags.ten_points_flag = 0;
 
 	const Uint8 * keyboard_state = SDL_GetKeyboardState(NULL);
 	
@@ -119,19 +114,23 @@ int main(void) {
 			update_game_area(window, &hud_area, &game_area);
 			clear_flag(WINDOW_RESIZE);
 		}
-		sflags.one_point_flag = 0;
-		sflags.ten_points_flag = 0;
 
-		update(&snake, &fruit, &score, keyboard_state, hud_area, game_area, &sflags);
+		update(&snake, &fruit, &score, keyboard_state, hud_area, game_area);
 		
 		render(renderer, fonte, &snake, &fruit, score, snake.is_alive, game_area, hud_area);
 	
-		if(sflags.game_over_flag) {
+		if(check_flag(GAME_OVER)) {
 			Mix_PlayChannel(1, game_over_sound, 0);
-			sflags.game_over_flag = 0;
+			clear_flag(GAME_OVER);
 		}
-		if(sflags.one_point_flag) Mix_PlayChannel(-1, one_point_sound, 0);
-		if(sflags.ten_points_flag) Mix_PlayChannel(-1, ten_points_sound, 0);
+		if(check_flag(ONE_POINT)) {
+			Mix_PlayChannel(-1, one_point_sound, 0);
+			clear_flag(ONE_POINT);
+		}
+		if(check_flag(TEN_POINTS)) {
+			Mix_PlayChannel(-1, ten_points_sound, 0);
+			clear_flag(TEN_POINTS);
+		}
 		
 		SDL_Delay(delay);
 	}
@@ -206,7 +205,7 @@ int check_collision(Snake * snake, SDL_Rect * game_area) {
 	return 0;
 }
 
-void update(Snake * snake, Fruit * fruit, int * score, const Uint8 * keyboard_state, SDL_Rect hud_area, SDL_Rect game_area, SoundFlags * sflags) { 
+void update(Snake * snake, Fruit * fruit, int * score, const Uint8 * keyboard_state, SDL_Rect hud_area, SDL_Rect game_area) {
 	
 	if(snake->is_alive) {
 		change_direction(keyboard_state, snake);
@@ -216,14 +215,14 @@ void update(Snake * snake, Fruit * fruit, int * score, const Uint8 * keyboard_st
 		if(keyboard_state[SDL_SCANCODE_SPACE]) {
 			reset(snake, white, fruit, red, game_area);
 			*score = 0;
-			sflags->game_over_flag = 0;
+			clear_flag(GAME_OVER);
 			Mix_HaltChannel(-1);
 		}
 	}
 	
 	if(check_collision(snake, &game_area) && snake->is_alive) {
 		die(snake);
-		sflags->game_over_flag = 1;
+		set_flag(GAME_OVER);
 	}
 	
 	if(snake->body->x == fruit->position.x && snake->body->y == fruit->position.y) {
@@ -234,10 +233,10 @@ void update(Snake * snake, Fruit * fruit, int * score, const Uint8 * keyboard_st
 		SDL_Point fruit_pos = get_new_fruit_position(game_area, snake->body, snake->body_size);
 		move_fruit(fruit, fruit_pos);
 		if(*score % 10 == 0) {
-			sflags->ten_points_flag = 1;
+			set_flag(TEN_POINTS);
 		}
 		else {
-			sflags->one_point_flag = 1;
+			set_flag(ONE_POINT);
 		}
 	}
 }
