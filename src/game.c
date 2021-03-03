@@ -136,7 +136,10 @@ int main(void) {
 		
 		SDL_Delay(delay);
 	}
-	
+
+	TTF_CloseFont(fonte);
+	TTF_Quit();
+
 	Mix_HaltChannel(-1);
 	Mix_FreeChunk(one_point_sound);
 	Mix_FreeChunk(ten_points_sound);
