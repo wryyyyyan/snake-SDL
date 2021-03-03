@@ -212,6 +212,12 @@ int check_collision(Snake * snake, SDL_Rect * game_area) {
 
 void update(Snake * snake, Fruit * fruit, int * score, const Uint8 * keyboard_state, SDL_Rect game_area) {
 	
+	if(keyboard_state[SDL_SCANCODE_ESCAPE]) {
+		SDL_Event q_key;
+		q_key.type = SDL_QUIT;
+		SDL_PushEvent(&q_key);
+	}
+
 	if(snake->is_alive) {
 		change_direction(keyboard_state, snake);
 		move_snake(snake);
