@@ -60,6 +60,7 @@ void clear_flag(flag_values flag) {
 
 
 int handle_events(void * unused, SDL_Event * event) {
+	(void)unused;
 	if(event->type == SDL_QUIT) {
 		set_flag(APPLICATION_CLOSE);
 	}
@@ -69,6 +70,7 @@ int handle_events(void * unused, SDL_Event * event) {
 			set_flag(WINDOW_RESIZE);
 		}
 	}
+	return 0;
 }
 
 
@@ -115,9 +117,9 @@ int main(void) {
 			clear_flag(WINDOW_RESIZE);
 		}
 
-		update(&snake, &fruit, &score, keyboard_state, hud_area, game_area);
+		update(&snake, &fruit, &score, keyboard_state, game_area);
 		
-		render(renderer, fonte, &snake, &fruit, score, snake.is_alive, game_area, hud_area);
+		render(renderer, fonte, &snake, &fruit, score, game_area, hud_area);
 	
 		if(check_flag(GAME_OVER)) {
 			Mix_PlayChannel(1, game_over_sound, 0);
@@ -205,7 +207,7 @@ int check_collision(Snake * snake, SDL_Rect * game_area) {
 	return 0;
 }
 
-void update(Snake * snake, Fruit * fruit, int * score, const Uint8 * keyboard_state, SDL_Rect hud_area, SDL_Rect game_area) {
+void update(Snake * snake, Fruit * fruit, int * score, const Uint8 * keyboard_state, SDL_Rect game_area) {
 	
 	if(snake->is_alive) {
 		change_direction(keyboard_state, snake);
@@ -241,7 +243,7 @@ void update(Snake * snake, Fruit * fruit, int * score, const Uint8 * keyboard_st
 	}
 }
 
-void render(SDL_Renderer * renderer, TTF_Font * fonte, Snake * snake, Fruit * fruit, int score, int snake_alive, SDL_Rect game_area, SDL_Rect hud_area) {
+void render(SDL_Renderer * renderer, TTF_Font * fonte, Snake * snake, Fruit * fruit, int score, SDL_Rect game_area, SDL_Rect hud_area) {
 	update_hud(renderer, score, fonte, white);
 	SDL_SetRenderDrawColor(renderer, white.r, white.g, white.b, white.a);
 	SDL_RenderDrawRect(renderer, &(SDL_Rect){ game_area.x, game_area.y, game_area.w, game_area.h - hud_area.h });

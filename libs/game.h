@@ -23,7 +23,7 @@ void reset(Snake * snake, SDL_Color snake_color, Fruit * fruit, SDL_Color fruit_
 void update_hud(SDL_Renderer * renderer, int score, TTF_Font * fonte, SDL_Color text_color);
 void update_game_area(SDL_Window * window, SDL_Rect * hud_area, SDL_Rect * game_area);
 int check_collision(Snake * snake, SDL_Rect * game_area);
-void update(Snake * snake, Fruit * fruit, int * score, const Uint8 * keyboard_state, SDL_Rect hud_area, SDL_Rect game_area);
-void render(SDL_Renderer * renderer, TTF_Font * fonte, Snake * snake, Fruit * fruit, int score, int snake_alive, SDL_Rect game_area, SDL_Rect hud_area);
+void update(Snake * snake, Fruit * fruit, int * score, const Uint8 * keyboard_state, SDL_Rect game_area);
+void render(SDL_Renderer * renderer, TTF_Font * fonte, Snake * snake, Fruit * fruit, int score, SDL_Rect game_area, SDL_Rect hud_area);
 
 #endif
