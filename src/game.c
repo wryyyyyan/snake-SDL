@@ -35,7 +35,8 @@ typedef enum flag_values {
 	APPLICATION_CLOSE,
 	GAME_OVER,
 	ONE_POINT,
-	TEN_POINTS
+	TEN_POINTS,
+	MOVE_ALLOWED
 } flag_values;
 
 // não use isso diretamente
@@ -44,7 +45,8 @@ int flags[] = {
 	0, // application close
 	0, // game over
 	0, // one point
-	0  // ten points
+	0, // ten points
+	0
 };
 
 int check_flag(flag_values flag) {
@@ -71,6 +73,11 @@ int handle_events(void * unused, SDL_Event * event) {
 			set_flag(WINDOW_RESIZE);
 		}
 	}
+
+	if(event->type == SDL_KEYDOWN) {
+		set_flag(MOVE_ALLOWED);
+	}
+
 	return 0;
 }
 
@@ -220,7 +227,7 @@ void update(Snake * snake, Fruit * fruit, int * score, const Uint8 * keyboard_st
 		SDL_PushEvent(&q_key);
 	}
 
-	if(snake->is_alive) {
+	if(snake->is_alive && check_flag(MOVE_ALLOWED)) {
 		change_direction(keyboard_state, snake);
 		move_snake(snake);
 	}
@@ -260,7 +267,15 @@ void render(SDL_Renderer * renderer, TTF_Font * fonte, Snake * snake, Fruit * fr
 	SDL_RenderDrawRect(renderer, &(SDL_Rect){ game_area.x, game_area.y, game_area.w, game_area.h - hud_area.h });
 	render_snake(renderer, snake);
 	render_fruit(renderer, fruit);
-	
+
+	if(!check_flag(MOVE_ALLOWED)) {
+		int x_pos = game_area.w / 2;
+		int y_pos = game_area.h / 2;
+		SDL_Point text_position = { x_pos, y_pos };
+		SDL_Point boundary = { game_area.x, game_area.y };
+		write_to_screen(renderer, fonte, "Aperte qualquer botao", white, text_position, &boundary);
+	}
+
 	if(!snake->is_alive) {
 		int x_pos = game_area.w / 2;
 		int y_pos = game_area.h / 2; 
