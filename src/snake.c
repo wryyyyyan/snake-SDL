@@ -22,7 +22,7 @@ Snake create_snake(SDL_Color color) {
 	snake.color = color;
 	snake.sprite.x = 0;
 	snake.sprite.y = 0;
-	snake.sprite.w = snake.sprite.h = 16;
+	snake.sprite.w = snake.sprite.h = 15;
 	snake.is_alive = 1;
 	snake.current_direction = LEFT;
 	snake.body_capacity = 10;
@@ -91,8 +91,6 @@ void render_snake(SDL_Renderer * renderer, Snake * snake) {
 		snake->sprite.y = snake->body[i].y;
 		SDL_SetRenderDrawColor(renderer, snake->color.r, snake->color.g, snake->color.b, snake->color.a);
 		SDL_RenderFillRect(renderer, &snake->sprite);
-		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
-		SDL_RenderDrawRect(renderer, &snake->sprite);
 	}
 }
 
