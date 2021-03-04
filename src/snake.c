@@ -16,10 +16,11 @@
 //
 
 #include "snake.h"
+#include "colors.h"
 
-Snake create_snake(SDL_Color color) {
+Snake create_snake() {
 	Snake snake;
-	snake.color = color;
+	snake.color = light_green;
 	snake.sprite.x = 0;
 	snake.sprite.y = 0;
 	snake.sprite.w = snake.sprite.h = 15;
@@ -96,6 +97,5 @@ void render_snake(SDL_Renderer * renderer, Snake * snake) {
 
 void die(Snake * snake) {
 	snake->is_alive = 0;
-	SDL_Color red = { 255, 0, 0, 255 };
-	snake->color = red;
+	snake->color = grey;
 }

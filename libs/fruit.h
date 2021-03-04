@@ -27,7 +27,7 @@ typedef struct Fruit {
 } Fruit;
 
 
-Fruit create_fruit(SDL_Color color, SDL_Point first_position);
+Fruit create_fruit(SDL_Point first_position);
 void render_fruit(SDL_Renderer * renderer, Fruit * fruit);
 void move_fruit(Fruit * fruit, SDL_Point position);
 SDL_Point generate_new_fruit_position(SDL_Rect game_area);

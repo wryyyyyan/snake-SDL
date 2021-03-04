@@ -20,6 +20,7 @@
 #include <stdio.h>
 #include <SDL2/SDL.h>
 #include "common.h"
+#include "colors.h"
 #include "render.h"
 #include "snake.h"
 #include "fruit.h"
@@ -83,7 +84,8 @@ int main(void) {
 	SDL_Renderer * renderer = NULL;
 	TTF_Font * fonte = NULL; 
 	SDL_Point screen_size = { (screen_width / tile_size) * tile_size, (screen_height / tile_size) * tile_size };
-		
+
+
 	SDL_Rect hud_area; 
 	SDL_Rect game_area;
 	
@@ -97,7 +99,7 @@ int main(void) {
 	
 	init_render(&window, &renderer, &fonte, screen_size);
 	update_game_area(window, &hud_area, &game_area);
-	reset(&snake, white, &fruit, red, game_area);
+	reset(&snake, &fruit, game_area);
 	
 	init_audio();
 	Mix_Chunk * one_point_sound = load_audio("sons/Eat fruit.wav", 32);
@@ -163,14 +165,14 @@ SDL_Point get_new_fruit_position(SDL_Rect game_area, SDL_Point * snake_body, int
 	return fruit_pos;
 }
 
-void reset(Snake * snake, SDL_Color snake_color, Fruit * fruit, SDL_Color fruit_color, SDL_Rect game_area) {
-	*snake = create_snake(snake_color);
+void reset(Snake * snake, Fruit * fruit, SDL_Rect game_area) {
+	*snake = create_snake();
 	SDL_Point head_position = { (game_area.w / (tile_size * 2) ) * tile_size, (game_area.h / (tile_size * 2)) * tile_size };
 	SDL_Point tail_position = { head_position.x - tile_size, head_position.y };
 	add_snake_segment(snake, head_position);
 	add_snake_segment(snake, tail_position);
 	SDL_Point fruit_pos = get_new_fruit_position(game_area, snake->body, snake->body_size);
-	*fruit = create_fruit(fruit_color, fruit_pos);
+	*fruit = create_fruit(fruit_pos);
 }
 
 
@@ -224,7 +226,7 @@ void update(Snake * snake, Fruit * fruit, int * score, const Uint8 * keyboard_st
 	}
 	else {
 		if(keyboard_state[SDL_SCANCODE_SPACE]) {
-			reset(snake, white, fruit, red, game_area);
+			reset(snake, fruit, game_area);
 			*score = 0;
 			clear_flag(GAME_OVER);
 			Mix_HaltChannel(-1);

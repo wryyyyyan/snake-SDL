@@ -32,7 +32,7 @@ typedef struct Snake {
 	SDL_Point * body;
 } Snake;
 
-Snake create_snake(SDL_Color color);
+Snake create_snake();
 void add_snake_segment(Snake * snake, SDL_Point position);
 void change_direction(const Uint8 * keyboard_state, Snake * snake);
 void move_snake(Snake * snake);

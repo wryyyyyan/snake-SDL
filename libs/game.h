@@ -19,7 +19,7 @@
 #define GAME_H
 
 SDL_Point get_new_fruit_position(SDL_Rect game_area, SDL_Point * snake_body, int snake_body_size);
-void reset(Snake * snake, SDL_Color snake_color, Fruit * fruit, SDL_Color fruit_color, SDL_Rect game_area);
+void reset(Snake * snake, Fruit * fruit, SDL_Rect game_area);
 void update_hud(SDL_Renderer * renderer, int score, TTF_Font * fonte, SDL_Color text_color);
 void update_game_area(SDL_Window * window, SDL_Rect * hud_area, SDL_Rect * game_area);
 int check_collision(Snake * snake, SDL_Rect * game_area);

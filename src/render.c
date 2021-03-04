@@ -17,6 +17,11 @@
 
 #include "render.h"
 
+const SDL_Color white       = { 255, 255, 255, 255 };
+const SDL_Color red         =     { 255, 0, 0, 255 };
+const SDL_Color light_green =    { 0, 200, 55, 255 };
+const SDL_Color grey        = { 180, 180, 180, 255 };
+
 int init_render(SDL_Window ** window, SDL_Renderer ** renderer, TTF_Font ** font, SDL_Point screen_size) {
 	SDL_Init(SDL_INIT_VIDEO);
 	TTF_Init();
