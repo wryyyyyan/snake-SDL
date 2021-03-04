@@ -25,9 +25,9 @@ Snake create_snake(SDL_Color color) {
 	snake.sprite.w = snake.sprite.h = 15;
 	snake.is_alive = 1;
 	snake.current_direction = LEFT;
-	snake.body_capacity = 10;
+	snake.body_capacity = 32;
 	snake.body_size = 0;
-	snake.body = calloc(snake.body_capacity, sizeof(SDL_Point));
+	snake.body = calloc(snake.body_capacity, sizeof(*snake.body));
 
 	return snake;
 }
@@ -36,8 +36,8 @@ Snake create_snake(SDL_Color color) {
 void add_snake_segment(Snake * snake, SDL_Point position) {
 	snake->body_size++;
 	if(snake->body_size >= snake->body_capacity) {
-		snake->body_capacity += 10;
-		snake->body = realloc(snake->body, snake->body_capacity * sizeof(SDL_Point));
+		snake->body_capacity += 40;
+		snake->body = realloc(snake->body, snake->body_capacity * sizeof(*snake->body));
 	}
 	snake->body[snake->body_size - 1] = position;
 }
