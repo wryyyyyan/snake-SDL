@@ -23,7 +23,7 @@ Snake create_snake() {
 	snake.color = light_green;
 	snake.sprite.x = 0;
 	snake.sprite.y = 0;
-	snake.sprite.w = snake.sprite.h = 15;
+	snake.sprite.w = snake.sprite.h = 16;
 	snake.is_alive = 1;
 	snake.current_direction = LEFT;
 	snake.body_capacity = 32;
