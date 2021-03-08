@@ -174,7 +174,7 @@ SDL_Point get_new_fruit_position(SDL_Rect game_area, SDL_Point * snake_body, int
 
 void reset(Snake * snake, Fruit * fruit, SDL_Rect game_area) {
 	*snake = create_snake();
-	SDL_Point head_position = { (game_area.w / (tile_size * 2) ) * tile_size, (game_area.h / (tile_size * 2)) * tile_size };
+	SDL_Point head_position = { (game_area.w / (tile_size * 2) ) * tile_size, (game_area.h / (tile_size * 2) + 3) * tile_size };
 	SDL_Point tail_position = { head_position.x - tile_size, head_position.y };
 	add_snake_segment(snake, head_position);
 	add_snake_segment(snake, tail_position);
